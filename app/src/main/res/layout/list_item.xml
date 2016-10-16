@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/host">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/image"
+            android:id="@+id/basket"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/basket"
+            android:layout_marginLeft="16dp"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="26dp"
+            android:id="@+id/Uname"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/Uname"
+            android:textSize="18sp"
+            android:text="PhoneNumber"
+            android:layout_toRightOf="@id/basket"
+            android:id="@+id/UPhoneNumber"/>
+
+
+
+    </RelativeLayout>
+</LinearLayout>

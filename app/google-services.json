@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "674519576107",
+    "firebase_url": "https://basketball514-6f71d.firebaseio.com",
+    "project_id": "basketball514-6f71d",
+    "storage_bucket": "basketball514-6f71d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674519576107:android:2915f76067c5034c",
+        "android_client_info": {
+          "package_name": "com.example.dragos.basketballdragcode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674519576107-euav1v8nsrr3bhje57sgq0upjhgql4r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMM0eA4Fr5J8aH2-xixY-jztEYWEXm28I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
