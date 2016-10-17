@@ -19,9 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".SetPlayerInfoActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SetPlayerInfoActivity$Monday" />
+        <activity android:name=".MondayActivity" />
         <activity android:name=".Tuesday" />
         <activity android:name=".Wednesday"></activity>
     </application>

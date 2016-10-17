@@ -12,12 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -26,6 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mPass;
     private Button mRegister;
     private TextView mText;
+    private EditText userName;
+    private EditText phoneNUmber;
+    private Firebase firebase;
+    private Player player;
+    public final static String DB_url="https://basketball514-6f71d.firebaseio.com/all_Players";
+
 
     private ProgressDialog progressDial;
 
@@ -36,11 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         firebaseauth=FirebaseAuth.getInstance();
         if(firebaseauth.getCurrentUser()!= null){
             //profile activity here
             finish();
-            startActivity(new Intent(getApplicationContext(),SetPlayerInfoActivity.class));
+            startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
         }
 
         progressDial=new ProgressDialog(this);
@@ -49,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEmail=(EditText)findViewById(R.id.email);
         mPass=(EditText)findViewById(R.id.pass);
         mText=(TextView)findViewById(R.id.TText);
+        userName=(EditText) findViewById(R.id.User_Name);
+        phoneNUmber=(EditText)findViewById(R.id.Phone_Number);
+        firebase= new Firebase(MainActivity.DB_url);
+
 
         mRegister.setOnClickListener(this);
         mText.setOnClickListener(this);
@@ -83,8 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //user is succesfully registerded and logedin
                             //we will start thie profile activity here
                             //right now lets just display a toast only
+                            createNewUser(task.getResult().getUser());
                             finish();
-                            startActivity(new Intent(getApplicationContext(),SetPlayerInfoActivity.class));
+                            startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
 
                             progressDial.dismiss();
                         }
@@ -94,6 +111,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
+    }
+
+    private void createNewUser(FirebaseUser userFromRegistration) {
+        String username = userName.getText().toString();
+        String phoneNumber = phoneNUmber.getText().toString();
+        String userID= userFromRegistration.getUid();
+
+       player = new Player();
+
+        player.setName(username);
+        player.setphoneNumber(phoneNumber);
+        player.setUserId(userID);
+
+        firebase.push().setValue(player);
     }
 
     @Override

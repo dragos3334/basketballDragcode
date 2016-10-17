@@ -7,14 +7,29 @@ public class Player {
 
     private String mName;
     private String mPhoneNumber ;
+    private String userId;
+    private String userKey;
 
 
+    public String getUserId() {
+        return userId;
+    }
 
-    public Player(String UName, String UPhoneNumber)
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
+    }
+
+    public Player()
     {
-        mName= UName;
-        mPhoneNumber= UPhoneNumber;
-
     }
 
     public String getUName()

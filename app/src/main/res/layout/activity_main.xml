@@ -16,7 +16,7 @@
         android:text="User registration"
         android:layout_gravity="center"
         android:textSize="30dp"
-        android:layout_marginTop="150dp"
+
         />
 
     <EditText
@@ -33,6 +33,20 @@
         android:layout_marginBottom="20dp"
         android:id="@+id/pass"
         android:text="Password"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/User_Name"
+        android:text="User Name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/Phone_Number"
+        android:text="Phone Number"/>
 
     <Button
         android:layout_width="match_parent"

@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
  * Created by Dragos on 2016-09-01.
  */
-public class Fragment2  extends Fragment {
+public class Fragment2  extends Fragment  {
 
     private ListView lv;
     @Nullable
@@ -33,7 +34,7 @@ public class Fragment2  extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0)
                 {
-                    startActivity(new Intent(getContext(),SetPlayerInfoActivity.Monday.class));
+                    startActivity(new Intent(getContext(),MondayActivity.class));
                 }
                 if(position == 1)
                 {
@@ -45,19 +46,19 @@ public class Fragment2  extends Fragment {
                 }
                 if(position == 3)
                 {
-                    startActivity(new Intent(getContext(), SetPlayerInfoActivity.Monday.class));
+
                 }
                 if(position == 4)
                 {
-                    startActivity(new Intent(getContext(),SetPlayerInfoActivity.Monday.class));
+
                 }
                 if(position == 5)
                 {
-                    startActivity(new Intent(getContext(),SetPlayerInfoActivity.Monday.class));
+
                 }
                 if(position == 6)
                 {
-                    startActivity(new Intent(getContext(),SetPlayerInfoActivity.Monday.class));
+
                 }
 
 
