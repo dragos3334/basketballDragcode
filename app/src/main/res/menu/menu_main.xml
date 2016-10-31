@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.movie.dragos.scroll.MainActivity">
+
+    <item
+        android:id="@+id/all_players"
+        android:orderInCategory="100"
+        android:title="The community"
+        app:showAsAction="never" />
+
+    <item
+        android:orderInCategory="100"
+        android:title="Log Out"
+        app:showAsAction="never"
+        android:id="@+id/logout" />
+
+
+
+
+
+</menu>
