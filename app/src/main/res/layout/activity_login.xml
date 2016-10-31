@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/holo_blue_dark"
     tools:context="com.example.dragos.basketballdragcode.MainActivity">
 
 
@@ -26,29 +27,41 @@
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/Lemail"
+        android:paddingLeft="10dp"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
-        android:text="Email"/>
+        android:background="@drawable/rounded_edittext"
+        android:hint="Email"
+        android:textSize="20sp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/rounded_edittext"
         android:id="@+id/Lpass"
-        android:text="Password"/>
+        android:textSize="20sp"
+        android:hint="Password"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Lregister"
-        android:text="Register User"/>
+        android:text="Login"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LTText"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
-        android:text="not have an account? sign up here"/>
+        android:text="Not registered yet ?"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/OrganizerLogIn"
+        android:layout_marginTop="20dp"
+        android:text="Login as organiser"/>
 
 </LinearLayout>

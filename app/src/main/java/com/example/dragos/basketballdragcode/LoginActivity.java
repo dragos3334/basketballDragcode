@@ -1,8 +1,10 @@
 package com.example.dragos.basketballdragcode;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,8 +24,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText mEmail;
     private EditText mPass;
     private Button mRegister;
-    private TextView mText;
     private TextView mregis;
+    private TextView OrganizerLogIn;
+    private String Opassword;
 
     private ProgressDialog progressDial;
 
@@ -50,9 +53,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mRegister=(Button)findViewById(R.id.Lregister);
         mEmail=(EditText)findViewById(R.id.Lemail);
         mPass=(EditText)findViewById(R.id.Lpass);
-        mText=(TextView)findViewById(R.id.LTText);
         mregis=(TextView)findViewById(R.id.LTText);
+        OrganizerLogIn=(TextView)findViewById(R.id.OrganizerLogIn);
 
+        OrganizerLogIn.setOnClickListener(this);
         mRegister.setOnClickListener(this);
         mregis.setOnClickListener(this);
     }
@@ -74,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         //if validation is ok
         // we will  first swhow a progrees bar
-        progressDial.setMessage("We are now fucking your mom please wait...");
+        progressDial.setMessage("Processing...");
         progressDial.show();
 
         firebaseauth.signInWithEmailAndPassword(email,password)
@@ -86,8 +90,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(task.isSuccessful()){
                             //start the profile activity
                             finish();
-                            startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
-                        }
+                            startActivity(new Intent(getApplicationContext(),main2.class));
+                        }else{Toast.makeText(LoginActivity.this,"Password or email is incorrect",Toast.LENGTH_SHORT).show();}
 
                     }
                 });
@@ -102,6 +106,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             startActivity(new Intent(this,MainActivity.class));
         }
+        if(v == OrganizerLogIn){
+            request_Organizer_Password();
+        }
 
     }
+
+    private void request_Organizer_Password() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter access code:");
+
+        final EditText input_field = new EditText(this);
+
+        builder.setView(input_field);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Opassword = input_field.getText().toString();
+                if(Opassword.equals("b514b")){
+                    startActivity(new Intent(LoginActivity.this,main2.class));
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
 }

@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by Dragos on 2016-09-01.
@@ -20,8 +21,8 @@ public class Fragment2  extends Fragment  {
     private ListView lv;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment2,container,false);
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.content_main2,container,false);
 
         lv=(ListView)view.findViewById(R.id.list2);
 
@@ -32,42 +33,38 @@ public class Fragment2  extends Fragment  {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0)
-                {
-                    startActivity(new Intent(getContext(),MondayActivity.class));
-                }
-                if(position == 1)
-                {
-                    startActivity(new Intent(getContext(),Tuesday.class));
-                }
-                if(position == 2)
-                {
-                    startActivity(new Intent(getContext(),Wednesday.class));
-                }
-                if(position == 3)
-                {
+                Intent intent = new Intent(getContext(), WeeKDaysActivity.class);
+                    intent.putExtra("POSITION_LIST",position);
 
-                }
-                if(position == 4)
-                {
+                startActivity(intent);
+            }
+        });
 
-                }
-                if(position == 5)
-                {
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (ChekForOrganizer()) {
+                        Intent i = new Intent(getContext(), DayOrganizerActivity.class);
+                        i.putExtra("POSITION", position);
+                        startActivity(i);
+                    } else {
+                        Intent intent = new Intent(getContext(), WeeKDaysActivity.class);
+                        intent.putExtra("POSITION_LIST",position);
 
-                }
-                if(position == 6)
-                {
+                        startActivity(intent);
+                    }
 
-                }
-
-
+                return true;
             }
         });
 
 
 
         return view;
+    }
+
+    private boolean ChekForOrganizer(){
+        return FirebaseAuth.getInstance().getCurrentUser() == null;
     }
 
 

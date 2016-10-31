@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">basketballDragcode</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_main2">main2</string>
 </resources>

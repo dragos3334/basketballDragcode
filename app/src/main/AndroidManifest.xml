@@ -3,6 +3,8 @@
     package="com.example.dragos.basketballdragcode">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".InitializeFirebase"
@@ -18,11 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfilActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MondayActivity" />
-        <activity android:name=".Tuesday" />
-        <activity android:name=".Wednesday"></activity>
+        <activity android:name=".WeeKDaysActivity" />
+        <activity android:name=".DayOrganizerActivity" />
+        <activity
+            android:name=".main2"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".playersListActivity"></activity>
     </application>
 
 </manifest>

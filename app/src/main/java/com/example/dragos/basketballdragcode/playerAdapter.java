@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Dragos on 2016-08-31.
@@ -54,13 +58,9 @@ public class playerAdapter extends ArrayAdapter<Player> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Check if the existing view is being reused, otherwise inflate the view
-        View listItemView = convertView;
-        if(listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+        View listItemView = convertView.inflate(getContext(),R.layout.list_item,null);
 
-        }
+
 
         // Get the {@link AndroidFlavor} object located at this position in the list
         Player currentWord = getItem(position);
@@ -78,9 +78,21 @@ public class playerAdapter extends ArrayAdapter<Player> {
         // set this text on the number TextView
         UPhoneNumerTextView.setText(currentWord.getUPhoneNumber());
 
+        CircleImageView UserProfilPicView = (CircleImageView) listItemView.findViewById(R.id.pro_pic);
+        // Get the version number from the current AndroidFlavor object and
+        // set this text on the number TextView
+        Picasso.with(getContext()).load(currentWord.getProfifPic()).noPlaceholder().centerCrop().fit()
+                .into(UserProfilPicView,new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
 
+                    }
 
+                    @Override
+                    public void onError() {
 
+                    }
+                });
 
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
