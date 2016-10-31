@@ -2,17 +2,9 @@ package com.example.dragos.basketballdragcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import java.util.ArrayList;
-
-public class playersListActivity extends AppCompatActivity {
+public class PlayersListActivity extends AppCompatActivity {
 
 
 
@@ -22,7 +14,7 @@ public class playersListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_players_list);
 
 
-        playerAdapter adapter = new playerAdapter(playersListActivity.this, main2.Players);
+        PlayerAdapter adapter = new PlayerAdapter(PlayersListActivity.this, MainActicity2.Players);
 
         ListView listView = (ListView) findViewById(R.id.list);
 

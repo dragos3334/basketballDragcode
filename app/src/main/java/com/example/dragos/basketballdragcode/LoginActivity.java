@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(task.isSuccessful()){
                             //start the profile activity
                             finish();
-                            startActivity(new Intent(getApplicationContext(),main2.class));
+                            startActivity(new Intent(getApplicationContext(),MainActicity2.class));
                         }else{Toast.makeText(LoginActivity.this,"Password or email is incorrect",Toast.LENGTH_SHORT).show();}
 
                     }
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialogInterface, int i) {
                 Opassword = input_field.getText().toString();
                 if(Opassword.equals("b514b")){
-                    startActivity(new Intent(LoginActivity.this,main2.class));
+                    startActivity(new Intent(LoginActivity.this,MainActicity2.class));
                 }
             }
         });

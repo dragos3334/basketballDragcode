@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class main2 extends AppCompatActivity {
+public class MainActicity2 extends AppCompatActivity {
 
     private ListView lv;
     public static ArrayList<Player> Players;
@@ -34,13 +34,13 @@ public class main2 extends AppCompatActivity {
         lv=(ListView)findViewById(R.id.list2);
 
         final String []WeekDays= {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(main2.this,android.R.layout.simple_list_item_1,WeekDays);
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(MainActicity2.this,android.R.layout.simple_list_item_1,WeekDays);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(main2.this, WeeKDaysActivity.class);
+                Intent intent = new Intent(MainActicity2.this, WeeKDaysActivity.class);
                 intent.putExtra("POSITION_LIST",position);
 
                 startActivity(intent);
@@ -51,11 +51,11 @@ public class main2 extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if (ChekForOrganizer()) {
-                    Intent i = new Intent(main2.this, DayOrganizerActivity.class);
+                    Intent i = new Intent(MainActicity2.this, DayOrganizerActivity.class);
                     i.putExtra("POSITION", position);
                     startActivity(i);
                 } else {
-                    Intent intent = new Intent(main2.this, WeeKDaysActivity.class);
+                    Intent intent = new Intent(MainActicity2.this, WeeKDaysActivity.class);
                     intent.putExtra("POSITION_LIST",position);
 
                     startActivity(intent);
@@ -110,12 +110,12 @@ public class main2 extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.all_players) {
-            startActivity(new Intent(main2.this, playersListActivity.class));
+            startActivity(new Intent(MainActicity2.this, PlayersListActivity.class));
             return true;
         }else if(id==R.id.logout){
             FirebaseAuth.getInstance().signOut();
             finish();
-            startActivity(new Intent(main2.this,LoginActivity.class));
+            startActivity(new Intent(MainActicity2.this,LoginActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

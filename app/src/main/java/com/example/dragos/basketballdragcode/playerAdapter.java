@@ -1,7 +1,6 @@
 package com.example.dragos.basketballdragcode;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,10 +15,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Dragos on 2016-08-31.
  */
-public class playerAdapter extends ArrayAdapter<Player> {
+public class PlayerAdapter extends ArrayAdapter<Player> {
 
 
-    private static final String LOG_TAG = playerAdapter.class.getSimpleName();
+    private static final String LOG_TAG = PlayerAdapter.class.getSimpleName();
 
 
 
@@ -35,7 +34,7 @@ public class playerAdapter extends ArrayAdapter<Player> {
      */
 
 
-    public playerAdapter(Activity context, ArrayList<Player> words) {
+    public PlayerAdapter(Activity context, ArrayList<Player> words) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not

@@ -24,10 +24,10 @@
         <activity android:name=".WeeKDaysActivity" />
         <activity android:name=".DayOrganizerActivity" />
         <activity
-            android:name=".main2"
+            android:name=".MainActicity2"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".playersListActivity"></activity>
+        <activity android:name=".PlayersListActivity"></activity>
     </application>
 
 </manifest>

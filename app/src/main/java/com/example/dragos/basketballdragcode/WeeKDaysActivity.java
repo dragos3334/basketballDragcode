@@ -27,7 +27,7 @@ public class WeeKDaysActivity extends AppCompatActivity implements View.OnClickL
     private Button outButton;
     private ListView listParticipants;
     private ArrayList<Player> Players;
-    private playerAdapter adapter;
+    private PlayerAdapter adapter;
     private Firebase firebase = new Firebase("https://basketball514-6f71d.firebaseio.com/");
     private TextView dayOfTheWeek;
     private String price;
@@ -127,17 +127,17 @@ public class WeeKDaysActivity extends AppCompatActivity implements View.OnClickL
         inButton.setOnClickListener(this);
         outButton.setOnClickListener(this);
 
-        playerAdapter adapter = new playerAdapter(WeeKDaysActivity.this, Players);
+        PlayerAdapter adapter = new PlayerAdapter(WeeKDaysActivity.this, Players);
         listParticipants.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {  if(v == inButton){
-        for(Player player: main2.Players) {
+        for(Player player: MainActicity2.Players) {
             if (player.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) && chekifIsNotAlreadyInList(Players,player.getUserId())){
                 firebase.child(weekDay+"_Players").push().setValue(player);
 
-                adapter = new playerAdapter(WeeKDaysActivity.this,Players);
+                adapter = new PlayerAdapter(WeeKDaysActivity.this,Players);
 
                 listParticipants.setAdapter(adapter);
                 inButton.setVisibility(View.GONE);
@@ -176,7 +176,7 @@ public class WeeKDaysActivity extends AppCompatActivity implements View.OnClickL
 }
 
     void setAdapter(){
-        adapter = new playerAdapter(WeeKDaysActivity.this,Players);
+        adapter = new PlayerAdapter(WeeKDaysActivity.this,Players);
         listParticipants.setAdapter(adapter);
     }
 

@@ -58,7 +58,7 @@ public class DayOrganizerActivity extends AppCompatActivity implements View.OnCl
 
             parentFirebase.child(dayOfTheWeek.getDayOfTheWeek()+"_Details").removeValue();
             firebase.push().setValue(dayOfTheWeek);
-            startActivity(new Intent(getApplicationContext(),main2.class));
+            startActivity(new Intent(getApplicationContext(),MainActicity2.class));
         }
 
     }
