@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.example.dragos.basketballdragcode"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -35,5 +35,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.braintreepayments.api:braintree:2.+'
+    compile 'com.braintreepayments.api:drop-in:2.+'
 }
 apply plugin: 'com.google.gms.google-services'

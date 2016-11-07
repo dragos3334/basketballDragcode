@@ -4,6 +4,7 @@
 
 package com.example.dragos.basketballdragcode;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -56,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText mEmail;
     private EditText mPass;
-    private Button mRegister;
-    private TextView mText;
+    private Button registerButton;
+    private TextView allreadyRegisteredButtton;
     private EditText userName;
     private EditText phoneNUmber;
     private Firebase firebase;
@@ -72,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String downloadUri;
     private Picasso picasso;
     private ProgressBar progressBar;
-
-
     private ProgressDialog progressDial;
-
     private FirebaseAuth firebaseauth;
 
     @Override
@@ -83,23 +82,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://basketball514-6f71d.appspot.com/");
 
 
         firebaseauth = FirebaseAuth.getInstance();
         if (firebaseauth.getCurrentUser() != null) {
-            //profile activity here
             finish();
             startActivity(new Intent(getApplicationContext(), MainActicity2.class));
         }
 
         progressDial = new ProgressDialog(this);
 
-        mRegister = (Button) findViewById(R.id.register);
+        registerButton = (Button) findViewById(R.id.register);
         mEmail = (EditText) findViewById(R.id.email);
         mPass = (EditText) findViewById(R.id.pass);
-        mText = (TextView) findViewById(R.id.TText);
+        allreadyRegisteredButtton = (TextView) findViewById(R.id.TText);
         userName = (EditText) findViewById(R.id.User_Name);
         phoneNUmber = (EditText) findViewById(R.id.Phone_Number);
         firebase = new Firebase(MainActivity.DB_url);
@@ -109,20 +108,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editIcon=(CircleImageView)findViewById(R.id.editPic);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
+
+        rotateButton.setOnClickListener(this);
+        chekButton.setOnClickListener(this);
+        profilPicture.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
+        allreadyRegisteredButtton.setOnClickListener(this);
+
         picasso= new Picasso.Builder(this).listener(new Picasso.Listener() {
             @Override
             public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
                 exception.printStackTrace();
             }
         }).build();
-
-
-
-        rotateButton.setOnClickListener(this);
-        chekButton.setOnClickListener(this);
-        profilPicture.setOnClickListener(this);
-        mRegister.setOnClickListener(this);
-        mText.setOnClickListener(this);
     }
 
 
@@ -132,18 +130,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = mPass.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            //email is empty
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-            //stopping the function executing further
             return;
         }
+
         if (TextUtils.isEmpty(password)) {
-            //password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
-        //if validation is ok
-        // we will  first swhow a progrees bar
+
         progressDial.setMessage("Processing...");
         progressDial.show();
 
@@ -152,34 +147,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //user is succesfully registerded and logedin
-                            //we will start thie profile activity here
-                            //right now lets just display a toast only
+
                             createNewUser(task.getResult().getUser());
-
-
                         } else {
                             Toast.makeText(MainActivity.this, "could not register, please try again", Toast.LENGTH_LONG).show();
                             progressDial.dismiss();
-                        }
-                    }
-                });
-    }
+                        }}});}
 
     private void createNewUser(FirebaseUser userFromRegistration) {
         String username = userName.getText().toString();
         String phoneNumber = phoneNUmber.getText().toString();
         String userID = userFromRegistration.getUid();
-
+        String email=mEmail.getText().toString();
 
         player = new Player();
-
         player.setName(username);
-        player.setphoneNumber(phoneNumber.substring(0,3)+"-"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,10));
+        player.setPhoneNumber(phoneNumber.substring(0,3)+"-"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,10));
         player.setUserId(userID);
-
-
-
+        player.setEmail(email);
 
         profilPicture.buildDrawingCache();
         bmp = profilPicture.getDrawingCache();
@@ -197,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 downloadUri =downloadUrl.toString();
-                player.setProfifPic(downloadUri);
+                player.setProfilPic(downloadUri);
                 firebase.push().setValue(player);
 
                 firebase.addValueEventListener(new ValueEventListener() {
@@ -211,33 +196,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
 
-                    }
-                });
-            }
-        });
-    }
-
-
+                    }});}});}
 
     @Override
     public void onClick(View v) {
-        if (v == mRegister) {
-
-            if(userName.getText().toString().equals("")){
-                userName.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            }else if(phoneNUmber.getText().toString().equals("")){
-                phoneNUmber.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            }else if(phoneNUmber.getText().toString().length()<10){
-                Toast.makeText(MainActivity.this, "10 digits are necessary for phone number", Toast.LENGTH_LONG).show();
-                phoneNUmber.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            }else if(mPass.getText().toString().length()<7){
-                Toast.makeText(MainActivity.this, "7 digits minimum for password", Toast.LENGTH_LONG).show();
-                mPass.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            }
-            else {registeruser();}
-
+        if (v == registerButton) {
+            ChekIfFieldsCompleted();
         }
-        if (v == mText) {
+        if (v == allreadyRegisteredButtton) {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
@@ -249,27 +215,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);}
             else {
                 Toast.makeText(MainActivity.this, "Network isn't available", Toast.LENGTH_LONG).show();
-            }
+            }}
 
-        }
         if (v == rotateButton) {
 
-
             Matrix matrix = new Matrix();
-
             matrix.postRotate(90);
-
 
             Bitmap rotatedBitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
             bmp = rotatedBitmap;
             profilPicture.setImageBitmap(bmp);
-
         }
+
         if (v == chekButton) {
             rotateButton.setVisibility(View.GONE);
             chekButton.setVisibility(View.GONE);
-        }
-    }
+        }}
 
 
     @Override
@@ -287,8 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
             cursor.close();
             final StorageReference imagesRef = storageRef.child("Profile_Pic");
             imagesRef.putFile(selectedImage);
@@ -329,18 +288,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                     profilPicture.setImageBitmap(bmp);
 
-                                }
-                            });
-
-
-
-                }
-            });
-
-
-        }
-    }
-
+                                }});}});}}
 
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {
         ParcelFileDescriptor parcelFileDescriptor =
@@ -357,6 +305,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-
+    public void ChekIfFieldsCompleted(){
+        if(userName.getText().toString().equals("")){
+            userName.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        }else if(phoneNUmber.getText().toString().equals("")){
+            phoneNUmber.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        }else if(phoneNUmber.getText().toString().length()<10){
+            Toast.makeText(MainActivity.this, "10 digits are necessary for phone number", Toast.LENGTH_LONG).show();
+            phoneNUmber.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        }else if(mPass.getText().toString().length()<7){
+            Toast.makeText(MainActivity.this, "7 digits minimum for password", Toast.LENGTH_LONG).show();
+            mPass.getBackground().setColorFilter(ContextCompat.getColor(MainActivity.this,R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        }
+        else {registeruser();}
+    }
 }
 

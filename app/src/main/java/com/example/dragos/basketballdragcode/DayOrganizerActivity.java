@@ -17,7 +17,7 @@ public class DayOrganizerActivity extends AppCompatActivity implements View.OnCl
     private String setPrice;
     private String setLocation;
     private String setTime;
-    private Button saveChanges;
+    private Button saveChangesButton;
     private DayDetails dayOfTheWeek;
     private Firebase parentFirebase= new Firebase("https://basketball514-6f71d.firebaseio.com/");
 
@@ -28,21 +28,18 @@ public class DayOrganizerActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_organizer);
 
-
         price=(EditText)findViewById(R.id.ETprice);
         location=(EditText)findViewById(R.id.ETlocation);
         time=(EditText)findViewById(R.id.ETtime);
-        saveChanges=(Button) findViewById(R.id.savChanges);
+        saveChangesButton =(Button) findViewById(R.id.savChanges);
 
-        saveChanges.setOnClickListener(this);
-
-
+        saveChangesButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
-        if(v == saveChanges){
+        if(v == saveChangesButton){
             setPrice=price.getText().toString();
             setLocation=location.getText().toString();
             setTime=time.getText().toString();
@@ -55,12 +52,10 @@ public class DayOrganizerActivity extends AppCompatActivity implements View.OnCl
             MatchDays(extras.getInt("POSITION"));
            Firebase firebase = new Firebase("https://basketball514-6f71d.firebaseio.com/"+ dayOfTheWeek.getDayOfTheWeek()+"_Details");
 
-
             parentFirebase.child(dayOfTheWeek.getDayOfTheWeek()+"_Details").removeValue();
             firebase.push().setValue(dayOfTheWeek);
             startActivity(new Intent(getApplicationContext(),MainActicity2.class));
         }
-
     }
     private void MatchDays(int position) {
         switch (position){
@@ -90,5 +85,4 @@ public class DayOrganizerActivity extends AppCompatActivity implements View.OnCl
 
         }
     }
-
 }

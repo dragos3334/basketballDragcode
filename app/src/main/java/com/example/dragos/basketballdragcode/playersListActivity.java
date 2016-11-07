@@ -6,8 +6,6 @@ import android.widget.ListView;
 
 public class PlayersListActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

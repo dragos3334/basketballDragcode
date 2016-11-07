@@ -10,20 +10,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActicity2 extends AppCompatActivity {
 
     private ListView lv;
     public static ArrayList<Player> Players;
     private Firebase firebase = new Firebase(MainActivity.DB_url);
+    private CircleImageView ProfilPic;
+    private TextView welcomeText;
+    private RelativeLayout relativeLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +42,13 @@ public class MainActicity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         lv=(ListView)findViewById(R.id.list2);
+        ProfilPic=(CircleImageView)findViewById(R.id.login_pro_pic);
+        welcomeText=(TextView)findViewById(R.id.welcome_text);
+        relativeLayout=(RelativeLayout)findViewById(R.id.RL);
+        Players = new ArrayList<>();
+
+        if(ChekForOrganizer()){relativeLayout.setVisibility(View.GONE);}
+
 
         final String []WeekDays= {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(MainActicity2.this,android.R.layout.simple_list_item_1,WeekDays);
@@ -60,59 +77,54 @@ public class MainActicity2 extends AppCompatActivity {
 
                     startActivity(intent);
                 }
-
                 return true;
             }
         });
-
-        Players = new ArrayList<>();
 
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()) {
-                    String name = (String) playerSnapshot.child("uname").getValue();
-                    String phoneNumber = (String) playerSnapshot.child("uphoneNumber").getValue();
+                    String name = (String) playerSnapshot.child("name").getValue();
+                    String phoneNumber = (String) playerSnapshot.child("phoneNumber").getValue();
                     String userID = (String) playerSnapshot.child("userId").getValue();
-                    String profilPic=(String) playerSnapshot.child("profifPic").getValue();
+                    String profilPic = (String) playerSnapshot.child("profilPic").getValue();
+                    String email = (String) playerSnapshot.child("email").getValue();
                     Player player = new Player();
-                    player.setphoneNumber(phoneNumber);
+                    player.setPhoneNumber(phoneNumber);
+                    player.setEmail(email);
                     player.setName(name);
-                    player.setProfifPic(profilPic);
+                    player.setProfilPic(profilPic);
                     player.setUserId(userID);
                     Players.add(player);
 
-                }
-            }
+
+                    if (!ChekForOrganizer()) {
+                        if (player.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            welcomeText.setText(player.getName().substring(0, player.getName().indexOf(" ")));
+                            Picasso.with(MainActicity2.this).load(player.getProfilPic()).noPlaceholder().centerCrop().fit()
+                                    .into(ProfilPic);
+                        }}}}
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-
+            }});
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.all_players) {
             startActivity(new Intent(MainActicity2.this, PlayersListActivity.class));
             return true;
-        }else if(id==R.id.logout){
+        }else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(MainActicity2.this,LoginActivity.class));

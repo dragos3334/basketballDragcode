@@ -13,8 +13,64 @@
     tools:context="com.example.dragos.basketballdragcode.MainActicity2"
     tools:showIn="@layout/activity_main2">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/RL">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/default_pic"
+        android:id="@+id/login_pro_pic"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome "
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/Wtext"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/login_pro_pic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dragos"
+            android:textSize="20sp"
+            android:id="@+id/welcome_text"
+            android:layout_toRightOf="@id/Wtext"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="!"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/welcome_text"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See what games are waiting for you this week"
+            android:layout_toRightOf="@id/login_pro_pic"
+            android:layout_below="@id/welcome_text"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"/>
+
+    </RelativeLayout>
+
+
 
     <ListView
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/RL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list2">
